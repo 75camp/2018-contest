@@ -1,0 +1,38 @@
+body {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+.container {
+	width: 50%;
+	height: 40rem;
+	margin: 0 auto;
+	background-color: #eee;
+}
+header {
+	width: 80%;
+	height: 4rem;
+	margin: 0 auto;
+	background-color: #eee;
+	padding-top: 2rem;
+}
+.box {
+	width: 80%;
+	height: 30rem;
+	margin: 0 auto;
+}
+	.block {
+		width: 24%;
+		height: 24%;
+		margin: 0 5px 5px 0;
+		border-radius:10%;
+		background-color: red;
+		float: left;
+	}
+.
+footer {
+	width: 80%;
+	height: 5rem;
+	margin: 0 auto;
+	background-color: blue;
+}
