@@ -10,7 +10,7 @@ body {
 	font-weight: bold;
 }
 #container {
-	width: 50%;
+	width: 45rem;
 	height: 40rem;
 	margin: 0 auto;
 	background-color: #eee;
@@ -24,12 +24,15 @@ header {
 }
 .box {
 	width: 80%;
-	height: 30rem;
+	height: 25em;
 	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 	.box div {
-		width: 24%;
-		height: 24%;
+		width: 6em;
+		height: 6em;
 		margin: 0 5px 5px 0;
 		border-radius:10%;
 		background-color: #D92731;
