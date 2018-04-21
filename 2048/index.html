@@ -1,43 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="author" content="liulucyoo">
-	<!-- 移动端适配头部 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
-	<title>2048小游戏</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <meta charset="UTF-8">
+    <meta name="author" content="liulucyoo">
+    <!-- 移动端适配头部 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>2048小游戏</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div id="container">
-	<header>
-		<strong>2048游戏</strong>
-		<button>New Game</button>
-			<p>SCORE:<span>0</span></p>
-	</header>
-	<div class="box" id="wrap">
-		<div class="block grid-0"></div>
-		<div class="block grid-1" ></div>
-		<div class="block grid-2" ></div>
-		<div class="block grid-3"></div>
-
-		<div class="block grid-4"></div>
-		<div class="block grid-5"></div>
-		<div class="block grid-6"></div>
-		<div class="block grid-7"></div>
-
-		<div class="block grid-8"></div>
-		<div class="block grid-9"></div>
-		<div class="block grid-10"></div>
-		<div class="block grid-11"></div>
-
-		<div class="block grid-12"></div>
-		<div class="block grid-13"></div>
-		<div class="block grid-14"></div>
-		<div class="block grid-15"></div>
-	</div>
-</div>
-
-<script type="text/javascript" src="js/script.js"></script>
+    <div id="counting">
+        <h2>2048小游戏</h2>
+        游戏分数：<span id="countingResult">0</span>
+        <button onclick="newGame()">重新开始</button>
+    </div>
+    <div id="game">
+        <div id="row1" class="count0">
+            <div class="block" id="b1"></div>
+            <div class="block" id="b2"></div>
+            <div class="block" id="b3"></div>
+            <div class="block" id="b4"></div>
+        </div>
+        <div id="row2">
+            <div class="block" id="b5"></div>
+            <div class="block" id="b6"></div>
+            <div class="block" id="b7"></div>
+            <div class="block" id="b8"></div>
+        </div>
+        <div id="row3">
+            <div class="block" id="b9"></div>
+            <div class="block" id="b10"></div>
+            <div class="block" id="b11"></div>
+            <div class="block" id="b12"></div>
+        </div>
+        <div id="row4">
+            <div class="block" id="b13"></div>
+            <div class="block" id="b14"></div>
+            <div class="block" id="b15"></div>
+            <div class="block" id="b16"></div>
+        </div>
+    </div>  
+<script src="js/script.js"></script> 
 </body>
 </html>

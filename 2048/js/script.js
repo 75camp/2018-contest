@@ -1,194 +1,319 @@
-function Game () {
-	var _this = this;
-	Object.defineProperty(this,"score",{
-		set:function (val) {
-			document.getElementsByTagName("span")[0].innerText = val;
-		}
-	})
-	
-	this.numArr = [];
-	this.init = function () {
-		this.spareGrid = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-		this.score = 0;
-		//将所有格子置空
-		this.spareGrid.forEach(function (item) {
-			var curDiv = document.getElementsByClassName("grid-"+item)[0]
-			curDiv.innerText = "";
-			curDiv.className = "grid-"+item;
-		})
-		var onePos = Math.floor(Math.random()*16);
-		this.spareGrid[onePos] = "no";
-		var anotherPos = Math.floor(Math.random()*16);
-		this.spareGrid[anotherPos] = "no";
-		var allDivs = document.getElementById("wrap").getElementsByTagName("div").innerText = "";
-		var oneDiv = document.getElementsByClassName("grid-"+onePos)[0];
-		oneDiv.innerText = "2";
-		oneDiv.className += " active";
-		var anotherDiv = document.getElementsByClassName("grid-"+anotherPos)[0];
-		anotherDiv.innerText = "2";
-		anotherDiv.className += " active";
-		console.log(this.spareGrid)
-	};
-	this.getOneNum = function () {
-		var spareGrid = this.spareGrid.filter((item)=>item!="no");
-		var len = spareGrid.length;
-		if (len>0) {
-			var onePos = spareGrid[Math.floor(Math.random()*len)];
-			var oneDiv = document.getElementsByClassName("grid-"+onePos)[0];
-			oneDiv.innerText = "2";
-			oneDiv.className += " active";
-			_this.spareGrid[onePos] = "no";//可用格子里 该项设置为no
-		} else{
-			alert("游戏结束！")
-		}
-			
-	};
-	this.getScore = function () {
-		this.score = this.quickSort(_this.numArr).pop();
-	};
-	this.quickSort = function (arr){
-	    if(arr.length<=1){
-	       return arr;
-	    }
-	    var pivotIndex=Math.floor(arr.length/2);
-	    var pivot=arr.splice(pivotIndex,1)[0];
-	    var left=[];
-	    var right=[];
-	    for(var i=0;i<arr.length;i++){
-	        if(arr[i]<pivot){
-	           left.push(arr[i]);
-	        }else{
-	           right.push(arr[i]);
-	        }
-	    }
-	    return _this.quickSort(left).concat([pivot],_this.quickSort(right));
-	};
-	//判断当前操作是否可执行
-	this.operate = function (op) {
-		if (op) {
-			_this.numArr.forEach(function (item,index) {
-				var cur = document.getElementsByClassName("grid-"+index)[0];
-				if (item) {
-					cur.innerText = item;
-					cur.className += " active";
-					_this.spareGrid[index] = "no";
-				} else{
-					cur.innerText = "";
-					cur.className = cur.className.replace(/active/gi,"");
-					_this.spareGrid[index] = index;
-				}
-			})
-			this.getScore();
-			this.getOneNum();
-		}
-	}
-	//监听键盘的下箭头事件
-	this.down = function () {
-		this.numArr = [];
-		var operate = false;
-		for (var i = 0;i<4;i++) {
-			var arr = [];
-			for (var j = 0;j<4;j++) {
-				var k = i+4*j;
-				var num = document.getElementsByClassName("grid-"+k)[0].innerText;
-				if (num) {
-					arr.push(num);
-				} else{
-					arr.push(0);
-				}
-			}
-			//判断是否可操作
-			var str = arr.join("");
-			var reg = /[1-9]+[0]+/;
-			if (reg.test(str)) {
-				operate = true;
-			}
-			arr.forEach(function (item,index) {
-				if (item == 0) {
-					arr.splice(index,1);
-					arr.unshift(0);
-				}
-			})
-			for (var n = 3;n>0;n--) {
-				if (arr[n] == arr[n-1] && arr[n]!=0) {
-					arr[n] = arr[n-1]*2;
-					arr.splice(n-1,1);
-					arr.unshift(0);
-					operate = true;
-				}
-			}
-			arr.forEach(function (item,index) {
-				_this.numArr[i+4*index] = item;
-				
-			})
-		}
-		this.operate(operate);
-		
-			
-			
-	};
-	this.up = function () {
-		
-	};
-	this.left = function () {
-		
-	};
-	this.right = function () {
-		this.numArr = [];
-		var operate = false;
-		for (var i = 0;i<4;i++) {
-			var arr = [];
-			for (var j = 0;j<4;j++) {
-				var k = j+4*i;
-				var num = document.getElementsByClassName("grid-"+k)[0].innerText;
-				if (num) {
-					arr.push(num);
-				} else{
-					arr.push(0);
-				}
-			}
-			//判断是否可操作
-			var str = arr.join("");
-			var reg = /[1-9]+[0]+/;
-			if (reg.test(str)) {
-				operate = true;
-			}
-			arr.forEach(function (item,index) {
-				if (item == 0) {
-					arr.splice(index,1);
-					arr.unshift(0);
-				}
-			})
-			for (var n = 3;n>0;n--) {
-				if (arr[n] == arr[n-1] && arr[n]!=0) {
-					arr[n] = arr[n-1]*2;
-					arr.splice(n-1,1);
-					arr.unshift(0);
-					operate = true;
-				}
-			}
-			arr.forEach(function (item,index) {
-				_this.numArr[4*i+index] = item;
-				
-			})
-		}
-		this.operate(operate)
-	}
-}
-var newGame = new Game();
-newGame.init();
-var resetBtn = document.getElementsByTagName("button")[0];
-resetBtn.addEventListener("click",function () {
-	newGame.init();
-})
-document.onkeydown = function (event) {
-	if (event.keyCode == 37) {
-		newGame.left();
-	} else if (event.keyCode == 38) {
-		newGame.up();
-	} else if (event.keyCode == 39) {
-		newGame.right();
-	} else if (event.keyCode == 40) {
-		newGame.down();
-	}
-}
+    var game = document.getElementById("game"),
+        countingResult=document.getElementById("countingResult"),
+        counting=0,
+        b=[],
+        dragging = false,
+        mouseX,mouseY,left,height,
+        flag=false;
+    for(var i=1;i<=16;i++){
+        b[i] = document.getElementById("b"+i);
+    }
+    document.ontouchmove = function(e){
+        e.preventDefault();
+    }
+    function setNew(){
+        var random = Math.ceil(Math.random()*16);
+        while(b[random].innerHTML)random=Math.ceil(Math.random()*16);
+        var ran=Math.ceil(Math.random()*2);
+        b[random].innerHTML = 2*ran;
+        b[random].classList.add("count"+2*ran);
+        b[random].classList.add("block");
+    }
+    setNew();
+    
+    for(var i=1;i<=16;i++){
+        function down(e){
+            dragging = true;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        }
+        game.addEventListener("touchstart",function(e){
+            dragging = true;
+            mouseX = e.touches[0].clientX;
+            mouseY = e.touches[0].clientY;
+        });
+        game.addEventListener("touchend",function(e){
+            dragging = false;
+        })
+        game.addEventListener("mousedown",function(e){down(e)});
+        document.onmouseup=function(e){
+            dragging = false;
+        }
+        function moving(e,method,cell){
+        if(dragging){
+            if(method=="mouse"){
+                left = e.clientX;
+            }
+            else if(method=="finger"){
+                left = e.touches[0].clientX;
+            }
+            if(left-mouseX>cell){
+                for(var r=1;r<=4;r++){
+                    ltr(r);
+                }
+                handle();
+            }
+            if(mouseX-left>cell){
+                for(var r=1;r<=4;r++){
+                    rtl(r);
+                }
+                handle();
+            }
+        }
+        if(dragging){
+            if(method=="mouse"){
+                ttop = e.clientY;
+            }
+            else if(method=="finger"){
+                ttop = e.touches[0].clientY;
+            }
+            if(ttop - mouseY>cell){
+                for(var col=1;col<=4;col++){
+                    ttd(col);
+                }
+                handle();
+            }
+            if(mouseY-ttop>cell){
+                for(var col=1;col<=4;col++){
+                    dtt(col);
+                }
+                handle();
+            }
+        }
+    }
+    
+    //根据手机端和电脑端设置不同的参数确定移动
+    b[i].addEventListener("touchmove",function(e){
+        moving(e,"finger",50);
+    })
+    b[i].addEventListener("mousemove",function(e){
+        moving(e,"mouse",100);
+    });
+
+    }
+    //从左往右
+    function ltr(r){
+        var arr=[];
+        for(var i=4;i>0;i--){
+            arr.push(b[(r-1)*4+i].innerHTML);
+        }
+        var before = JSON.stringify(arr);
+        var len=arr.length;
+        for(var i=0;i<len;i++){
+            if(arr[i]==''){
+                arr.splice(i,1);
+                i-=1;
+            }
+        }
+        for(var j=0;j<arr.length;j++){
+            if(arr[j]==arr[j+1]){
+                arr[j]*=2;
+                counting+=arr[j];
+                countingResult.innerHTML=counting;
+                for(var k=j+1;k<arr.length-1;k++){
+                    arr[k]=arr[k+1];
+                }
+                arr[arr.length-1]='';
+            }
+        }
+        for(var j=0;j<4;j++){
+            var temp = r*4-j;
+            if(arr[j]){
+                b[temp].classList.remove("count"+b[temp].innerHTML);
+                b[temp].innerHTML=arr[j];
+                b[temp].classList='';
+                b[temp].classList.add("block");
+                b[temp].classList.add("count"+arr[j]);
+            }
+            else{
+                b[temp].classList.remove("count"+b[temp].innerHTML);
+                b[temp].innerHTML='';
+                b[temp].classList='';
+                b[temp].classList.add("count0");
+                b[temp].classList.add("block");
+            }
+        }
+        while(arr.length<4)arr.push('');
+        var after= JSON.stringify(arr);
+        if(before!=after&&!flag)flag=true;
+    }
+    function rtl(r){
+        var arr=[];
+        for(var i=1;i<=4;i++){
+            arr.push(b[(r-1)*4+i].innerHTML);
+        }
+        var before = JSON.stringify(arr);
+        var len=arr.length;
+        for(var i=0;i<len;i++){
+            if(arr[i]==''){
+                arr.splice(i,1);
+                i-=1;
+            }
+        }
+        for(var j=0;j<arr.length;j++){
+            if(arr[j]==arr[j+1]){
+                arr[j]*=2;
+                counting+=arr[j];
+                countingResult.innerHTML=counting;
+                for(var k=j+1;k<arr.length-1;k++){
+                    arr[k]=arr[k+1];
+                }
+                arr[arr.length-1]='';
+            }
+        }
+        for(var j=0;j<4;j++){
+            var temp = (r-1)*4+j+1;
+            if(arr[j]){
+                b[temp].classList.remove("count"+b[temp].innerHTML);
+                b[temp].innerHTML = arr[j];
+                b[temp].classList='';
+                b[temp].classList.add("block");
+                b[temp].classList.add("count"+arr[j]);
+            }
+            else {
+                b[temp].classList.remove("count"+b[temp].innerHTML);
+                b[temp].innerHTML='';
+                b[temp].classList='';
+                b[temp].classList.add("count0");
+                b[temp].classList.add("block");
+            }
+        }
+        while(arr.length<4)arr.push('');
+        var after= JSON.stringify(arr);
+        if(before!=after&&!flag)flag=true;
+    }
+    function ttd(col){
+        var arr=[];
+        for(var i=1;i<=4;i++){
+            arr.push(b[col+(i-1)*4].innerHTML);
+        }
+        var before = JSON.stringify(arr);
+        var len=arr.length;
+        for(var i=0;i<len;i++){
+            if(arr[i]==''){
+                arr.splice(i,1);
+                i-=1;
+            }
+        }
+        for(var j=arr.length-1;j>0;j--){
+            if(arr[j]==arr[j-1]){
+                arr[j]*=2;
+                counting+=arr[j];
+                countingResult.innerHTML=counting;
+                for(var k=j-1;k>=1;k--){
+                    arr[k]=arr[k-1];
+                }
+                arr.splice(0,1)
+            }
+        }
+        for(var j=0;j<4;j++){
+            var temp = col+(3-j)*4;
+            if(j<arr.length){
+                b[temp].classList.remove("count"+b[temp].innerHTML);
+                b[temp].innerHTML = arr[arr.length-1-j];
+                b[temp].classList='';
+                b[temp].classList.add("block");
+                b[temp].classList.add("count"+arr[arr.length-1-j]);
+            }
+            else{
+                b[temp].classList.remove("count"+b[temp].innerHTML);
+                b[temp].innerHTML='';
+                b[temp].classList='';
+                b[temp].classList.add("count0");
+                b[temp].classList.add("block");
+            }
+        }
+        arr=arr.reverse();
+        while(arr.length<4)arr.push('');
+        var after= JSON.stringify(arr.reverse());
+        if(before!=after&&!flag){flag=true;}
+    }
+    function dtt(col){
+        var arr=[];
+        for(var i=1;i<=4;i++){
+            arr.push(b[col+(i-1)*4].innerHTML);
+        }
+        var before = JSON.stringify(arr);
+        var len=arr.length;
+        for(var i=0;i<len;i++){
+            if(arr[i]==''){
+                arr.splice(i,1);
+                i-=1;
+            }
+        }
+        for(var j=0;j<arr.length;j++){
+            if(arr[j]==arr[j+1]){
+                arr[j]*=2;
+                counting+=arr[j];
+                countingResult.innerHTML=counting;
+                for(var k=j+1;k<arr.length-1;k++){
+                    arr[k]=arr[k+1];
+                }
+                arr.splice(arr.length-1,1)
+            }
+        }
+        for(var j=0;j<4;j++){
+            var temp = col+j*4;
+            if(j<arr.length){
+                b[temp].classList.remove("count"+b[temp].innerHTML)
+                b[temp].innerHTML = arr[j];
+                b[temp].classList.add("block");
+                b[temp].classList.add("count"+arr[j]);
+            }
+            else {
+                b[temp].classList.remove("count"+b[temp].innerHTML)
+                b[temp].innerHTML='';
+                b[temp].classList.add("count0");
+                b[temp].classList.add("block");
+            }
+        }
+        while(arr.length<4)arr.push('');
+        var after= JSON.stringify(arr);
+        if(before!=after&&!flag)flag=true;
+    }
+
+    //判定成功失败条件
+    function judge(){
+        for(var i=1;i<=16;i++){
+            if(b[i].innerHTML==2048){
+                var success=confirm("恭喜！游戏成功！");
+                if(success){
+                    newGame();
+                }
+            }
+            if(!b[i].innerHTML)return false;
+            if((i+1<=16)&&(i%4!=0)&&(b[i+1].innerHTML==''||b[i+1].innerHTML==b[i].innerHTML)){
+                return false;
+            }
+            if(i-1>=1&&(i%4!=1)&&(b[i-1].innerHTML==''||b[i-1].innerHTML==b[i].innerHTML)){
+                return false;
+            }
+            if(i-4>=1&&(b[i-4].innerHTML==''||b[i-4].innerHTML==b[i].innerHTML)){
+                return false;
+            }
+            if(i+4<=16&&(b[i+4].innerHTML==''||b[i+4].innerHTML==b[i].innerHTML)){
+                return false;
+            }
+        }
+        return true;
+    }
+    //开始新游戏，删除所有元素内容
+    function newGame(){
+        for(var j=1;j<=16;j++){
+            b[j].innerHTML='';
+            b[j].classList='';
+            b[j].classList.add("block");
+        }
+        setNew();
+    }
+    //如果数据变化则生成一个新的随机数，并判定游戏是否结束
+    function handle(){
+        dragging=false;
+        if(flag){
+            setNew();
+            var result = judge();
+            if(result)
+                alert("没有可移动！游戏失败！");
+        }
+        flag=false;
+    }
