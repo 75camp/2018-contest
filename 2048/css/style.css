@@ -1,0 +1,174 @@
+    @media screen and (min-width:460px){   
+        #game{
+            width: 450px;
+            height: 450px;
+            position: relative;
+            background-color: #eee;
+            margin:auto;
+            margin-top: 50px;
+            border-radius: 5px;
+            /*不选中文字*/
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+        }
+        h2 {
+            text-shadow: 5px 5px 1px #eee;
+        }
+        #counting{
+            margin:auto;
+            width: 450px;
+            text-align: center;
+        }
+        button{
+            width: 100px;
+            margin:auto;
+            border-radius: 15px;
+            margin-left: 50%; 
+        }
+        .block{
+            width: 100px;
+            height: 100px;
+            box-shadow: 1px 1px 2px red;
+            text-align: center;
+            line-height: 100px;
+            font-size: 30px;
+            position:absolute;
+            background-color: #cdc0b4;
+            color: white;
+            border-radius: 5px;
+            z-index: 1;
+        }
+        #b1,#b2,#b3,#b4{top:10px}
+        #b5,#b6,#b7,#b8{top: 120px}
+        #b9,#b10,#b11,#b12{top: 230px}
+        #b13,#b14,#b15,#b16{top: 340px}
+        #b1,#b5,#b9,#b13{left: 10px}
+        #b2,#b6,#b10,#b14{left: 120px}
+        #b3,#b7,#b11,#b15{left: 230px}
+        #b4,#b8,#b12,#b16{left: 340px}
+        /*不同值时候的背景和字体颜色*/
+        .count0{
+            background-color: #cdc0b4;
+            color: black;
+        }
+        .count2{
+            background-color: #eee4da;
+            color: black;
+        }
+        .count4{
+            background-color: #ede0c8;
+            color: black;
+        }
+        .count8{
+            background-color: #f2b179;
+        }
+        .count16{
+            background-color: #f59564;
+        }
+        .count32{
+            background-color: #f57c5f;
+        }
+        .count64{
+            background-color: #f65e3b;
+        }
+        .count128{
+            background-color: #edcf72;
+        }
+        .count256{
+            background-color: #edcc61;
+        }
+        .count512{
+            background-color: #edc850;
+        }
+        .count1024{
+            background-color: #edc53f;
+        }
+        .count2048{
+            background-color: #edc22e;
+        }
+    }
+    @media screen and (max-width: 460px){
+        #game{
+            width: 305px;
+            height: 305px;
+            border: solid 2px black;
+            position: relative;
+            background-color: #bbada0;
+            margin:auto;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+        #counting{
+            margin:auto;
+            width: 305px;
+            text-align: center;
+        }
+        button{
+            width: 70px;
+            margin:auto;
+        }
+        .block{
+            width: 70px;
+            height: 70px;
+            border: solid 1px black;
+            text-align: center;
+            line-height: 70px;
+            font-size: 26px;
+            position:absolute;
+            background-color: #cdc0b4;
+            color: white;
+            border-radius: 5px;
+            z-index: 1;
+        }
+        #b1,#b2,#b3,#b4{top:5px}
+        #b5,#b6,#b7,#b8{top: 80px}
+        #b9,#b10,#b11,#b12{top: 155px}
+        #b13,#b14,#b15,#b16{top: 230px}
+        #b1,#b5,#b9,#b13{left: 5px}
+        #b2,#b6,#b10,#b14{left: 80px}
+        #b3,#b7,#b11,#b15{left: 155px}
+        #b4,#b8,#b12,#b16{left: 230px}
+
+        /*不同值时候的背景和字体颜色*/
+        .count0{
+            background-color: #cdc0b4;
+            color: black;
+        }
+        .count2{
+            background-color: #eee4da;
+            color: black;
+        }
+        .count4{
+            background-color: #ede0c8;
+            color: black;
+        }
+        .count8{
+            background-color: #f2b179;
+        }
+        .count16{
+            background-color: #f59564;
+        }
+        .count32{
+            background-color: #f57c5f;
+        }
+        .count64{
+            background-color: #f65e3b;
+        }
+        .count128{
+            background-color: #edcf72;
+        }
+        .count256{
+            background-color: #edcc61;
+        }
+        .count512{
+            background-color: #edc850;
+        }
+        .count1024{
+            background-color: #edc53f;
+        }
+        .count2048{
+            background-color: #edc22e;
+        }
+    }
