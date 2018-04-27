@@ -143,7 +143,7 @@ export default class Game {
       this.start()
     }
 
-    bglayer.on('click', restart)
+    button.on('click', restart)
     // bglayer.on('touchstart', restart)
   }
   async loadBoard(boardData, addBlock) {
