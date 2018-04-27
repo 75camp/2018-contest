@@ -12,7 +12,7 @@ module.exports = function (env = {}) {
     mode: env.production ? 'production' : 'none',
     entry: './src/index',
     output: {
-      path: path.resolve(__dirname, 'www/js'),
+      path: path.resolve(__dirname, 'js'),
       filename: 'app.js',
       publicPath: '/js/',
       library: ['Game2048'],
