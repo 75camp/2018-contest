@@ -39,5 +39,8 @@ export default function delegateEvent(layer) {
         layer.dispatchEvent('step', {direction}, true, true)
       }
     })
+    document.documentElement.addEventListener('touchmove', (evt) => {
+      evt.preventDefault()
+    })
   }
 }
