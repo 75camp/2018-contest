@@ -146,18 +146,20 @@ export default class Game {
     bglayer.on('click', restart)
     // bglayer.on('touchstart', restart)
   }
-  loadBoard(boardData, addBlock) {
+  async loadBoard(boardData, addBlock) {
+    const promises = []
     for(let i = 0; i < boardData.length; i++) {
       const row = boardData[i]
       for(let j = 0; j < row.length; j++) {
         const cell = row[j]
         if(cell >= 0) {
-          addBlock(i, j, cell)
+          promises.push(addBlock(i, j, cell))
         }
       }
     }
+    await Promise.all(promises)
   }
-  start() {
+  async start() {
     const {fglayer, boardBg, scoreText, bestText} = this,
       {boardSize, blocks} = this.config
 
@@ -177,7 +179,7 @@ export default class Game {
     const board = new Board({size: boardSize, maxLevel: blocks.length - 1})
     const h = tile.cellSize[1]
 
-    function addBlock(i, j, level) {
+    async function addBlock(i, j, level) {
       if(level == null) {
         level = Math.random() > 0.75 ? 1 : 0
       }
@@ -207,7 +209,7 @@ export default class Game {
           opacity: 0,
         })
 
-        block.animate([
+        const anim = block.animate([
           {opacity: 0},
           {opacity: 1},
         ], {
@@ -217,15 +219,15 @@ export default class Game {
         })
 
         tile.add(block, i, j)
+        await anim.finished
       }
     }
 
     const boardData = localStorage.getItem('board')
     if(boardData) {
-      this.loadBoard(JSON.parse(boardData).board, addBlock)
+      await this.loadBoard(JSON.parse(boardData).board, addBlock)
     } else {
-      addBlock()
-      addBlock()
+      await Promise.all([addBlock(), addBlock()])
     }
 
     let lock = false
