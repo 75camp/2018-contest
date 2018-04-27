@@ -24,7 +24,7 @@ const defaultConf = {
 export default class Game {
   constructor(id, options = {}) {
     this.config = Object.assign({}, options, defaultConf)
-    const scene = new Scene(id, {viewport: ['auto', 'auto'], resolution: [1500, 2668], stickMode: 'height'})
+    const scene = new Scene(id, {viewport: ['auto', 'auto'], resolution: [1500, 2412], stickMode: 'height'})
     this.bglayer = scene.layer(
       'bglayer',
       {handleEvent: true}
@@ -41,7 +41,7 @@ export default class Game {
 
     boardBg.attr({
       anchor: 0.5,
-      pos: [750, 1500],
+      pos: [750, 1350],
       size: [1200, 1200],
       bgcolor: bg[0],
     })
@@ -69,7 +69,7 @@ export default class Game {
       anchor: [0, 1],
       font: 'bold 240px Arial',
       lineHeight: 300,
-      pos: [100, 700],
+      pos: [100, 550],
       fillColor: '#776E66',
     })
     bglayer.append(title)
@@ -79,7 +79,7 @@ export default class Game {
       anchor: [0, 1],
       size: [260, 200],
       bgcolor: '#BBADA1',
-      pos: [800, 650],
+      pos: [800, 500],
       borderRadius: 20,
     })
 
@@ -106,7 +106,7 @@ export default class Game {
       anchor: [0, 1],
       size: [260, 200],
       bgcolor: '#BBADA1',
-      pos: [1100, 650],
+      pos: [1100, 500],
       borderRadius: 20,
     })
     bglayer.append(bestPanel)
@@ -121,7 +121,7 @@ export default class Game {
     button.attr({
       bgcolor: '#8E7A67',
       anchor: 0.5,
-      pos: [1050, 760],
+      pos: [1050, 610],
       fillColor: '#fff',
       font: '80px Arial',
       zIndex: 99999,
