@@ -41,6 +41,6 @@ export default function delegateEvent(layer) {
     })
     document.documentElement.addEventListener('touchmove', (evt) => {
       evt.preventDefault()
-    })
+    }, {passive: false})
   }
 }
